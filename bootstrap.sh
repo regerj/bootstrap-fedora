@@ -32,9 +32,9 @@ git config --global commit.gpgsign true
 
 # Setup bash
 rm ~/.bash_profile
-wget https://raw.githubusercontent.com/regerj/bash-settings/master/.bash_profile --directory-prefix=$HOME/
+wget https://raw.githubusercontent.com/regerj/config-files/master/.bash_profile --directory-prefix=$HOME/
 rm ~/.bashrc
-wget https://raw.githubusercontent.com/regerj/bash-settings/master/.bashrc --directory-prefix=$HOME/
+wget https://raw.githubusercontent.com/regerj/config-files/master/.bashrc --directory-prefix=$HOME/
 
 # Setup nvim
 rm -rf ~/.config/nvim/
