@@ -3,8 +3,8 @@
 # Basic updates
 #
 #######################################################################
-sudo dnf update
-sudo dnf upgrade
+sudo dnf update -y
+sudo dnf upgrade -y
 
 #######################################################################
 #
@@ -18,7 +18,7 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 # DNF Installs 
 #
 #######################################################################
-sudo dnf install neovim gcc clang kitty gh flatpak wget
+sudo dnf install neovim gcc clang kitty gh flatpak wget -y
 
 #######################################################################
 #
@@ -54,6 +54,15 @@ git config --global commit.gpgsign true
 
 #######################################################################
 #
+# Docker setup
+#
+#######################################################################
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+#######################################################################
+#
 # Bash configs
 #
 #######################################################################
@@ -71,6 +80,7 @@ wget https://raw.githubusercontent.com/regerj/config-files/master/.bashrc --dire
 wget https://raw.githubusercontent.com/regerj/config-files/master/bin/install-usr.sh --directory-prefix=$HOME/
 ~/install-usr.sh ~/install-usr.sh
 rm ~/install-usr.sh
+exec bash
 
 #######################################################################
 #
