@@ -1,27 +1,49 @@
-# Basics
+#######################################################################
+#
+# Basic updates
+#
+#######################################################################
 sudo dnf update
 sudo dnf upgrade
 
-# Custom curl installs
-# Rust
+#######################################################################
+#
+# Curl installs
+#
+#######################################################################
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 
-# DNF Installs
+#######################################################################
+#
+# DNF Installs 
+#
+#######################################################################
 sudo dnf install neovim gcc clang kitty gh flatpak wget
 
+#######################################################################
+#
 # GNOME Software Installs
+#
+#######################################################################
 flatpak install bitwarden
 flatpak install spotify
 flatpak install discord
 flatpak install obsidian
 
-# Setup gh
+#######################################################################
+#
+# GitHub Setup (creates ssh key)
+#
+#######################################################################
 gh auth login
 gh auth refresh -h github.com -s admin:ssh_signing_key
 gh ssh-key add ~/.ssh/id_ed25519.pub --type signing
 
-# Setup github
-# SSH keys
+#######################################################################
+#
+# Add keys to agent and setup signing and github info
+#
+#######################################################################
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git config --global gpg.format ssh
@@ -30,18 +52,56 @@ git config --global user.email regerjacob@gmail.com
 git config --global user.signingkey ~/.ssh/id_ed25519.pub
 git config --global commit.gpgsign true
 
-# Setup bash
+#######################################################################
+#
+# Bash configs
+#
+#######################################################################
 rm ~/.bash_profile
 wget https://raw.githubusercontent.com/regerj/config-files/master/.bash_profile --directory-prefix=$HOME/
 rm ~/.bashrc
 wget https://raw.githubusercontent.com/regerj/config-files/master/.bashrc --directory-prefix=$HOME/
 
-# Setup nvim
+#######################################################################
+#
+# Setup custom install command
+#
+#######################################################################
+
+wget https://raw.githubusercontent.com/regerj/config-files/master/bin/install-usr.sh --directory-prefix=$HOME/
+~/install-usr.sh ~/install-usr.sh
+rm ~/install-usr.sh
+
+#######################################################################
+#
+# Setup custom docker commands
+#
+#######################################################################
+
+# Remove all
+wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-rm-all.sh --directory-prefix=$HOME/
+install-usr.sh ~/docker-rm-all.sh
+rm ~/docker-rm-all.sh
+
+# Stop all
+wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-stop-all.sh --directory-prefix=$HOME/
+install-usr.sh ~/docker-stop-all.sh
+rm ~/docker-stop-all.sh
+
+#######################################################################
+#
+# Setup neovim
+#
+#######################################################################
 rm -rf ~/.config/nvim/
 rm -rf ~/.local/share/nvim/
 git clone git@github.com:regerj/neovim-config.git ~/.config/nvim
 
-# Fonts
+#######################################################################
+#
+# Setup fonts
+#
+#######################################################################
 mkdir jetbrains
 cd ./jetbrains
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
@@ -51,7 +111,11 @@ sudo mkdir -p /usr/local/share/fonts/
 sudo mv ./jetbrains/ /usr/local/share/fonts/jetbrains/
 sudo fc-cache -v
 
-# Extra notes
+#######################################################################
+#
+# Final notes
+#
+#######################################################################
 echo "Remember to:"
 echo -e "\t\u2705 Set dark mode"
 echo -e "\t\u2705 Reboot device"
