@@ -25,10 +25,12 @@ sudo dnf install neovim gcc clang kitty gh flatpak wget -y
 # GNOME Software Installs
 #
 #######################################################################
-flatpak install bitwarden
-flatpak install spotify
-flatpak install discord
-flatpak install obsidian
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install com.bitwarden.desktop -y
+flatpak install com.spotify.Client -y
+flatpak install com.discordapp.Discord -y
+flatpak install md.obsidian.Obsidian -y
 
 #######################################################################
 #
@@ -59,7 +61,7 @@ git config --global commit.gpgsign true
 #######################################################################
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 #######################################################################
 #
@@ -78,7 +80,7 @@ wget https://raw.githubusercontent.com/regerj/config-files/master/.bashrc --dire
 #######################################################################
 
 wget https://raw.githubusercontent.com/regerj/config-files/master/bin/install-usr.sh --directory-prefix=$HOME/
-~/install-usr.sh ~/install-usr.sh
+sudo ~/install-usr.sh ~/install-usr.sh
 rm ~/install-usr.sh
 exec bash
 
@@ -90,12 +92,12 @@ exec bash
 
 # Remove all
 wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-rm-all.sh --directory-prefix=$HOME/
-install-usr.sh ~/docker-rm-all.sh
+sudo install-usr.sh ~/docker-rm-all.sh
 rm ~/docker-rm-all.sh
 
 # Stop all
 wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-stop-all.sh --directory-prefix=$HOME/
-install-usr.sh ~/docker-stop-all.sh
+sudo install-usr.sh ~/docker-stop-all.sh
 rm ~/docker-stop-all.sh
 
 #######################################################################
