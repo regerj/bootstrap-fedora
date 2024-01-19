@@ -80,6 +80,7 @@ wget https://raw.githubusercontent.com/regerj/config-files/master/.bashrc --dire
 #######################################################################
 
 wget https://raw.githubusercontent.com/regerj/config-files/master/bin/install-usr.sh --directory-prefix=$HOME/
+chmod +x ~/install-usr.sh
 sudo ~/install-usr.sh ~/install-usr.sh
 rm ~/install-usr.sh
 exec bash
@@ -92,11 +93,13 @@ exec bash
 
 # Remove all
 wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-rm-all.sh --directory-prefix=$HOME/
+chmod +x ~/docker-rm-all.sh
 sudo install-usr.sh ~/docker-rm-all.sh
 rm ~/docker-rm-all.sh
 
 # Stop all
 wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-stop-all.sh --directory-prefix=$HOME/
+chmod +x ~/docker-stop-all.sh
 sudo install-usr.sh ~/docker-stop-all.sh
 rm ~/docker-stop-all.sh
 
