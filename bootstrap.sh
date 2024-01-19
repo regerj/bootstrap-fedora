@@ -83,7 +83,6 @@ wget https://raw.githubusercontent.com/regerj/config-files/master/bin/install-us
 chmod +x ~/install-usr.sh
 sudo ~/install-usr.sh ~/install-usr.sh
 rm ~/install-usr.sh
-exec bash
 
 #######################################################################
 #
@@ -137,3 +136,6 @@ echo -e "\t\u2705 Reboot device"
 echo -e "\t\u2705 Restart terminal"
 echo -e "\t\u2705 Sign into apps"
 echo -e "\t\u2705 Install bitwarden browser extension"
+
+read -p "Press enter to reboot the shell"
+exec bash
