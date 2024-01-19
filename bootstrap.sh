@@ -6,14 +6,14 @@ sudo dnf upgrade
 # Rust
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 
+# DNF Installs
+sudo dnf install neovim gcc clang kitty gh flatpak wget
+
 # GNOME Software Installs
 flatpak install bitwarden
 flatpak install spotify
 flatpak install discord
 flatpak install obsidian
-
-# DNF Installs
-sudo dnf install neovim gcc clang kitty gh
 
 # Setup gh
 gh auth login
