@@ -179,8 +179,7 @@ echo -e "\t\u2705 Setup kitty"
 echo -e "\t\u2705 Install font"
 
 echo "Remember to:"
-echo -e "\t\u2705 Set dark mode"
-echo -e "\t\u2705 Reboot device"
+echo -e "\t\u2705 Reboot device to finish any upgrades"
 echo -e "\t\u2705 Sign into apps"
 echo -e "\t\u2705 Install bitwarden browser extension"
 
