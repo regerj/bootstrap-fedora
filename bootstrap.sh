@@ -1,8 +1,10 @@
+#!/bin/bash
 #######################################################################
 #
 # Basic updates
 #
 #######################################################################
+
 sudo dnf update -y
 sudo dnf upgrade -y
 
@@ -11,6 +13,7 @@ sudo dnf upgrade -y
 # Curl installs
 #
 #######################################################################
+
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 
 #######################################################################
@@ -18,6 +21,7 @@ curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 # DNF Installs 
 #
 #######################################################################
+
 sudo dnf install neovim gcc clang kitty gh flatpak wget -y
 
 #######################################################################
@@ -25,6 +29,7 @@ sudo dnf install neovim gcc clang kitty gh flatpak wget -y
 # GNOME Software Installs
 #
 #######################################################################
+
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install com.bitwarden.desktop -y
@@ -37,6 +42,7 @@ flatpak install md.obsidian.Obsidian -y
 # GitHub Setup (creates ssh key)
 #
 #######################################################################
+
 gh auth login
 gh auth refresh -h github.com -s admin:ssh_signing_key
 gh ssh-key add ~/.ssh/id_ed25519.pub --type signing
@@ -46,6 +52,7 @@ gh ssh-key add ~/.ssh/id_ed25519.pub --type signing
 # Add keys to agent and setup signing and github info
 #
 #######################################################################
+
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 git config --global gpg.format ssh
@@ -59,19 +66,31 @@ git config --global commit.gpgsign true
 # Docker setup
 #
 #######################################################################
+
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
 #######################################################################
 #
+# Clone config repo
+#
+#######################################################################
+
+mkdir src
+CONFIG_PATH=$HOME/src/config-files/
+git clone https://github.com/regerj/config-files $CONFIG_PATH
+
+#######################################################################
+#
 # Bash configs
 #
 #######################################################################
+
 rm ~/.bash_profile
-wget https://raw.githubusercontent.com/regerj/config-files/master/.bash_profile --directory-prefix=$HOME/
+cp $CONFIG_PATH/.bash_profile $HOME
 rm ~/.bashrc
-wget https://raw.githubusercontent.com/regerj/config-files/master/.bashrc --directory-prefix=$HOME/
+cp $CONFIG_PATH/.bashrc $HOME
 
 #######################################################################
 #
@@ -79,10 +98,8 @@ wget https://raw.githubusercontent.com/regerj/config-files/master/.bashrc --dire
 #
 #######################################################################
 
-wget https://raw.githubusercontent.com/regerj/config-files/master/bin/install-usr.sh --directory-prefix=$HOME/
-chmod +x ~/install-usr.sh
-sudo ~/install-usr.sh ~/install-usr.sh
-rm ~/install-usr.sh
+chmod +x $CONFIG_PATH/bin/install-usr.sh
+sudo $CONFIG_PATH/bin/install-usr.sh $CONFIG_PATH/bin/install-usr.sh
 
 #######################################################################
 #
@@ -91,22 +108,28 @@ rm ~/install-usr.sh
 #######################################################################
 
 # Remove all
-wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-rm-all.sh --directory-prefix=$HOME/
-chmod +x ~/docker-rm-all.sh
-sudo install-usr.sh ~/docker-rm-all.sh
-rm ~/docker-rm-all.sh
+chmod +x $CONFIG_PATH/bin/docker-rm-all.sh
+sudo install-usr.sh $CONFIG_PATH/bin/docker-rm-all.sh
 
 # Stop all
-wget https://raw.githubusercontent.com/regerj/config-files/master/bin/docker-stop-all.sh --directory-prefix=$HOME/
-chmod +x ~/docker-stop-all.sh
-sudo install-usr.sh ~/docker-stop-all.sh
-rm ~/docker-stop-all.sh
+chmod +x $CONFIG_PATH/bin/docker-stop-all.sh
+sudo install-usr.sh $CONFIG_PATH/bin/docker-stop-all.sh
+
+#######################################################################
+#
+# Setup custom kitty
+#
+#######################################################################
+
+rm -rf $HOME/.config/kitty/
+cp -r $CONFIG_PATH/kitty/ $HOME/.config/
 
 #######################################################################
 #
 # Setup neovim
 #
 #######################################################################
+
 rm -rf ~/.config/nvim/
 rm -rf ~/.local/share/nvim/
 git clone git@github.com:regerj/neovim-config.git ~/.config/nvim
@@ -116,6 +139,7 @@ git clone git@github.com:regerj/neovim-config.git ~/.config/nvim
 # Setup fonts
 #
 #######################################################################
+
 mkdir jetbrains
 cd ./jetbrains
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
@@ -130,12 +154,26 @@ sudo fc-cache -v
 # Final notes
 #
 #######################################################################
+
+echo "Completed Tasks: "
+echo -e "\t\u2705 System update & upgrade"
+echo -e "\t\u2705 Installed rust"
+echo -e "\t\u2705 Installed neovim gcc clang kitty gh flatpak wget"
+echo -e "\t\u2705 Installed Bitwarden, Spotify, Discord, Kitty"
+echo -e "\t\u2705 Generated SSH key"
+echo -e "\t\u2705 Added key to Github for signing and authentication"
+echo -e "\t\u2705 Install docker"
+echo -e "\t\u2705 Setup custom terminal commands"
+echo -e "\t\u2705 Setup bash"
+echo -e "\t\u2705 Setup neovim"
+echo -e "\t\u2705 Setup kitty"
+echo -e "\t\u2705 Install font"
+
 echo "Remember to:"
 echo -e "\t\u2705 Set dark mode"
 echo -e "\t\u2705 Reboot device"
-echo -e "\t\u2705 Restart terminal"
 echo -e "\t\u2705 Sign into apps"
 echo -e "\t\u2705 Install bitwarden browser extension"
 
-read -p "Press enter to reboot the shell"
-exec bash
+read -p "Press ANY KEY to exit"
+exit
