@@ -10,6 +10,14 @@ sudo dnf upgrade -y
 
 #######################################################################
 #
+# Dark mode ofc...
+#
+#######################################################################
+
+gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+
+#######################################################################
+#
 # Curl installs
 #
 #######################################################################
@@ -157,6 +165,7 @@ sudo fc-cache -v
 
 echo "Completed Tasks: "
 echo -e "\t\u2705 System update & upgrade"
+echo -e "\t\u2705 Switched to dark mode"
 echo -e "\t\u2705 Installed rust"
 echo -e "\t\u2705 Installed neovim gcc clang kitty gh flatpak wget"
 echo -e "\t\u2705 Installed Bitwarden, Spotify, Discord, Kitty"
